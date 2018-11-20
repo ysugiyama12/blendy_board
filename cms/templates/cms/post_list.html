@@ -7,7 +7,7 @@
     <div class="box11">
       <p class="content-title">{{ post.name }}</p>
       <p class="content-author">投稿者: {{ post.author }}</p>
-      {{ post.content }}
+      {{ post.content|linebreaksbr }}
       <div class="edit-button">
         <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">修正</a>
         <a href="{% url 'cms:post_del' post_id=post.id %}" class="btn btn-outline-danger btn-sm">削除</a>
