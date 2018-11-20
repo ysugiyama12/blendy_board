@@ -8,7 +8,7 @@
     {% if post_id %}
     <form action="{% url 'cms:post_mod' post_id=post_id %}" method="post">
     {% else %}
-    <form action="{% url 'cms:post_add' %}" method="post">
+    <form action="{% url 'cms:post_add' parent=0 %}" method="post">
     {% endif %}
       {% csrf_token %}
       {% bootstrap_form form layout='horizontal' %}

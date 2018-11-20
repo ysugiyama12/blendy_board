@@ -1,0 +1,51 @@
+{% extends "cms/base.html" %}
+
+{% block title %}投稿一覧{% endblock title %}
+
+{% block content %}
+<div class="box11">
+    <p class="content-title">{{ post.name }}</p>
+    <p class="content-author">投稿者: {{ post.author }} | {{ post.update|date:"Y/m/d H:i" }}</p>
+    {{ post.content|linebreaksbr }}
+    <div class="button-below">
+        <a href="{% url 'cms:post_add' parent=post.id %}" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-reply"></i> reply
+        </a>
+        <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-edit"></i> edit
+        </a>
+        <a href="{% url 'cms:post_del' post_id=post.id %}" class="btn btn-outline-danger btn-sm">
+            <i class="fas fa-trash-alt"></i> delete
+        </a>
+    </div>
+    <!-- <div class="edit-button">
+        <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">edit</a>
+        <a href="{% url 'cms:post_del' post_id=post.id %}" class="btn btn-outline-danger btn-sm">delete</a>
+    </div>
+    <div class="reply-button">
+        <a href="{% url 'cms:post_add' parent=post.id %}" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-reply"></i> reply
+        </a>
+    </div> -->
+</div>
+{% for child in children %}
+<div class="box11_child">
+    <div class="post-reply">reply</div>
+    <p class="content-title">{{ child.name }}</p>
+    <p class="content-author">投稿者: {{ child.author }} | {{ child.update|date:"Y/m/d H:i" }}</p>
+    {{ child.content|linebreaksbr }}
+    <div class="button-below">
+        <a href="{% url 'cms:post_mod' post_id=child.id %}" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-edit"></i> edit
+        </a>
+        <a href="{% url 'cms:post_del' post_id=child.id %}" class="btn btn-outline-danger btn-sm">
+            <i class="fas fa-trash-alt"></i> delete
+        </a>
+    </div>
+    <!-- <div class="edit-button">
+        <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">修正</a>
+        <a href="{% url 'cms:post_del' post_id=post.id %}" class="btn btn-outline-danger btn-sm">削除</a>
+    </div> -->
+</div>
+{% endfor %}
+{% endblock content %}

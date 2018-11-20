@@ -3,42 +3,20 @@
 {% block title %}投稿一覧{% endblock title %}
 
 {% block content %}
+  <div class="list-title">- 投稿一覧 -</div>
     {% for post in posts %}
     <div class="box11">
-      <p class="content-title">{{ post.name }}</p>
-      <p class="content-author">投稿者: {{ post.author }}</p>
-      {{ post.content|linebreaksbr }}
-      <div class="edit-button">
+      <div class="content-title">{{ post.name }}</div>
+      <p class="content-author">投稿者: {{ post.author }} | {{ post.update|date:"Y/m/d H:i" }}</p>
+      {{ post.content|linebreaksbr|truncatechars:50 }}
+      <a class="box11_a" href="{% url 'cms:post' post_id=post.id %}"></a>
+    </div>
+    <!-- <div class="edit-button">
         <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">修正</a>
         <a href="{% url 'cms:post_del' post_id=post.id %}" class="btn btn-outline-danger btn-sm">削除</a>
-      </div>
-    </div>
+      </div> -->
     {% endfor %}
-    <a href="{% url 'cms:post_add' %}" class="share_btn2 shtw">
+    <a href="{% url 'cms:post_add' parent=0%}" class="share_btn2 shtw">
         <i class="fas fa-plus"></i>
     </a>
-    <!-- <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">タイトル</th>
-          <th scope="col">投稿者</th>
-          <th scope="col">本文</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for post in posts %}
-        <tr>
-          <th scope="row">{{ post.id }}</th>
-          <td>{{ post.name }}</td>
-          <td>{{ post.author }}</td>
-          <td>{{ post.content }}</td>
-          <td>
-            <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">修正</a>
-            <a href="{% url 'cms:post_del' post_id=post.id %}" class="btn btn-outline-danger btn-sm">削除</a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table> -->
 {% endblock content %}
