@@ -4,7 +4,13 @@
 {% block title %}書籍の編集{% endblock title %}
 
 {% block content %}
-    <h4 class="mt-4 mb-5 border-bottom">投稿の編集</h4>
+    <h4 class="mt-4 mb-5 border-bottom">
+      {% if parent == 0 %}
+      新規投稿
+      {% else %}
+      返信
+      {% endif %}
+    </h4>
     {% if post_id %}
     <form action="{% url 'cms:post_mod' post_id=post_id %}" method="post">
     {% else %}

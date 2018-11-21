@@ -8,9 +8,6 @@
     <p class="content-author">投稿者: {{ post.author }} | {{ post.update|date:"Y/m/d H:i" }}</p>
     {{ post.content|linebreaksbr }}
     <div class="button-below">
-        <a href="{% url 'cms:post_add' parent=post.id %}" class="btn btn-outline-primary btn-sm">
-            <i class="fas fa-reply"></i> reply
-        </a>
         <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">
             <i class="fas fa-edit"></i> edit
         </a>
@@ -18,15 +15,6 @@
             <i class="fas fa-trash-alt"></i> delete
         </a>
     </div>
-    <!-- <div class="edit-button">
-        <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">edit</a>
-        <a href="{% url 'cms:post_del' post_id=post.id %}" class="btn btn-outline-danger btn-sm">delete</a>
-    </div>
-    <div class="reply-button">
-        <a href="{% url 'cms:post_add' parent=post.id %}" class="btn btn-outline-primary btn-sm">
-            <i class="fas fa-reply"></i> reply
-        </a>
-    </div> -->
 </div>
 {% for child in children %}
 <div class="box11_child">
@@ -48,4 +36,10 @@
     </div> -->
 </div>
 {% endfor %}
+<a href="{% url 'cms:post_add' parent=post.id %}" class="btn-circle btn-reply">
+    <i class="fas fa-comment"></i>
+</a>
+<a href="{% url 'cms:post_list'%}" class="btn-circle2 btn-back">
+    <i class="fas fa-arrow-left"></i>
+</a>
 {% endblock content %}

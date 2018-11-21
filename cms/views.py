@@ -7,6 +7,9 @@ def post(request, post_id=None):
     if post_id is None:
         posts = Post.objects.all().order_by('id').reverse()
         return render(request, 'cms/post_list.html', {'posts': posts})
+    posts = Post.objects.filter(id=post_id).all()
+    if len(posts) == 0:
+        return redirect('/post')
     post = Post.objects.get(id=post_id)
     children = Post.objects.filter(parent=post_id).all().order_by('id')
     return render(request, 'cms/post.html', {'post': post, 'children': children})
@@ -19,6 +22,9 @@ def post_list(request):
 
 def post_edit(request, post_id=None, parent=None):
     if post_id:   # book_id が指定されている (修正時)
+        post_check = Post.objects.filter(id=post_id).all()
+        if len(post_check) == 0:
+            return redirect('/post')
         post = get_object_or_404(Post, pk=post_id)
     else:         # book_id が指定されていない (追加時)
         post = Post()
@@ -28,7 +34,11 @@ def post_edit(request, post_id=None, parent=None):
         if form.is_valid():    # フォpームのバリデーション
             post = form.save(commit=False)
             post.save()
-            return redirect('cms:post_list')
+            # return redirect('cms:post_list')
+            if post.parent == 0:
+                return redirect('/post/' + str(post.id))
+            else:
+                return redirect('/post/' +  str(post.parent))
     else:    # GET の時
         if parent is None:
             form = PostForm(instance=post)  # book インスタンスからフォームを作成
@@ -39,7 +49,10 @@ def post_edit(request, post_id=None, parent=None):
 
 def post_del(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
+    parent = post.parent
     post.delete()
-    posts = Post.objects.filter(parent=0).all().order_by('id').reverse()
-    return render(request, 'cms/post_list.html', {'posts': posts})
+    if parent == 0:
+        return redirect('/post')
+    else:
+        return redirect('/post/' + str(parent))
 

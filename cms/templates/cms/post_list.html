@@ -11,12 +11,8 @@
       {{ post.content|linebreaksbr|truncatechars:50 }}
       <a class="box11_a" href="{% url 'cms:post' post_id=post.id %}"></a>
     </div>
-    <!-- <div class="edit-button">
-        <a href="{% url 'cms:post_mod' post_id=post.id %}" class="btn btn-outline-primary btn-sm">修正</a>
-        <a href="{% url 'cms:post_del' post_id=post.id %}" class="btn btn-outline-danger btn-sm">削除</a>
-      </div> -->
     {% endfor %}
-    <a href="{% url 'cms:post_add' parent=0%}" class="share_btn2 shtw">
+    <a href="{% url 'cms:post_add' parent=0%}" class="btn-circle btn-plus">
         <i class="fas fa-plus"></i>
     </a>
 {% endblock content %}
